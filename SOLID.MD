@@ -115,6 +115,56 @@ class Robot(Worker):
         raise NotImplementedError("Robots cannot eat")
 In the above example, Robot class violates ISP because it is forced to implement the eat method even though it does not need it. A better approach would be to split the Worker interface into smaller, more cohesive interfaces that are implemented only by the classes that need them.
 
+Sure, here's an example demonstrating the Interface Segregation Principle (ISP) with Python:
+
+Let's say we have a system for managing different types of documents. We want to define interfaces for printers, scanners, and copiers, but we don't want to force all devices to implement methods they don't support.
+
+python
+Copy code
+from abc import ABC, abstractmethod
+
+# Define interfaces
+
+class Printer(ABC):
+    @abstractmethod
+    def print_document(self, document):
+        pass
+
+class Scanner(ABC):
+    @abstractmethod
+    def scan_document(self):
+        pass
+
+class Copier(ABC):
+    @abstractmethod
+    def copy_document(self):
+        pass
+
+# Implementations
+
+class SimplePrinter(Printer):
+    def print_document(self, document):
+        print("Printing document:", document)
+
+class AdvancedPrinter(Printer, Scanner):
+    def print_document(self, document):
+        print("Printing document:", document)
+    
+    def scan_document(self):
+        print("Scanning document...")
+
+class AdvancedCopier(Printer, Scanner, Copier):
+    def print_document(self, document):
+        print("Printing document:", document)
+    
+    def scan_document(self):
+        print("Scanning document...")
+    
+    def copy_document(self):
+        print("Copying document...")
+
+
+
 Dependency Inversion Principle (DIP):
 This principle states that high-level modules should not depend on low-level modules, but both should depend on abstractions. It encourages the use of interfaces or abstract classes to decouple modules and make them more flexible and reusable.
 
